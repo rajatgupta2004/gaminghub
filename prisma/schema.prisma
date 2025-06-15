@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Game {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  price       Float
+  duration    Int        // in minutes
+  image       String?
+  isActive    Boolean
+  createdAt   DateTime   @default(now())
+
+  timeSlots   TimeSlot[]
+  bookings    Booking[]
+}
+
+model TimeSlot {
+  id          String    @id @default(uuid())
+  game        Game     @relation(fields: [gameId], references: [id])
+  gameId      String
+  date        String   // Consider using Date if you want proper filtering/sorting
+  startTime   String
+  endTime     String
+  isBooked    Boolean   
+  bookedBy    String?  // refers to User.id
+  playerName  String?
+  playerEmail String?
+  playerPhone String?
+}
+
+model User {
+  id       String    @id @default(uuid())
+  name     String
+  email    String    @unique
+  image    String?
+  role     Role
+  phone    String?
+  bookings Booking[]
+}
+
+model Booking {
+  id         String  @id @default(uuid())
+  game       Game     @relation(fields: [gameId], references: [id])
+  gameId     String
+
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+
+  gameName   String
+  userName   String
+  userEmail  String
+  userPhone  String?
+
+  date       String
+  startTime  String
+  endTime    String
+  price      Float
+  status     BookingStatus
+  bookedAt   DateTime @default(now())
+}
+
+enum Role {
+  admin
+  user
+}
+
+enum BookingStatus {
+  confirmed
+  cancelled
+}
