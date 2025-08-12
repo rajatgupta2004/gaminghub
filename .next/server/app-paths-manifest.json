@@ -1,6 +1,9 @@
 {
+  "/login/page": "app/login/page.js",
   "/page": "app/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/api/games/route": "app/api/games/route.js",
-  "/api/timeslots/all/route": "app/api/timeslots/all/route.js"
+  "/api/games/active/route": "app/api/games/active/route.js",
+  "/api/available-slots/route": "app/api/available-slots/route.js",
+  "/api/users/[userId]/stats/route": "app/api/users/[userId]/stats/route.js",
+  "/api/bookings/route": "app/api/bookings/route.js"
 }
