@@ -117,7 +117,6 @@ function UserDashboardClient() {
                 className="pl-10 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
               />
             </div>
-
             {/* Games Grid */}
             {filteredGames.length === 0 ? (
               <div className="text-center py-12">
@@ -155,12 +154,9 @@ function UserDashboardClient() {
         return null
     }
   }
-
-
   return (
      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pb-20">
       <MobileHeader title={getHeaderTitle()} showNotifications={true} />
-      
       <main className="px-4 py-6">
         {renderContent()}
       </main>
@@ -169,7 +165,6 @@ function UserDashboardClient() {
         onTabChange={setActiveTab} 
         userRole="user" 
       />
-
       {/* Booking Modal */}
       {selectedGame && (
         <BookingModal
@@ -177,7 +172,6 @@ function UserDashboardClient() {
           onClose={() => setSelectedGame(null)}
         />
       )}
-
     </div>
   )
 }

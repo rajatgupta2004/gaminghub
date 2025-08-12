@@ -21,19 +21,23 @@ const TimeSlotManagement: React.FC = () => {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const [gamesRes, timeSlotsRes] = await Promise.all([
-          fetch('/api/games'),
-          fetch('/api/timeslots/all')
+        const [timeSlotsRes, gamesRes] = await Promise.all([
+          fetch('/api/timeslots/all'),
+          fetch('/api/games')
         ])
-
+        
+      
         if (!gamesRes.ok || !timeSlotsRes.ok) {
           throw new Error('Failed to fetch data')
         }
 
-        const [gamesData, timeSlotsData] = await Promise.all([
-          gamesRes.json(),
-          timeSlotsRes.json()
+        const [timeSlotsData, gamesData ] = await Promise.all([
+          timeSlotsRes.json(),
+          gamesRes.json()
         ])
+
+        console.log(timeSlotsData);
+
 
         setGames(gamesData)
         setTimeSlots(timeSlotsData)
